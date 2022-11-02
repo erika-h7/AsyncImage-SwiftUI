@@ -47,8 +47,20 @@ struct ContentView: View {
         // MARK: - 4. PHASE
         
         AsyncImage(url: URL(string: imageURL)) { phase in
+            // SUCCESS: The image successfully loaded.
+            // FAILURE: The image failed to load with an error.
+            // EMPTY: No image is loaded.
             
+            if let image = phase.image {
+                image.imageModifier()
+            } else if phase.error != nil {
+                Image(systemName: "ant.circle.fill").iconModifier()
+            } else {
+                Image(systemName: "photo.circle.fill").iconModifier()
+            }
         }
+        .padding(40)
+        .padding(40)
     }
 }
 
